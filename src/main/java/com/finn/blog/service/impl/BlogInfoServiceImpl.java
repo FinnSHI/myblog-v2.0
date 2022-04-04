@@ -3,7 +3,7 @@ package com.finn.blog.service.impl;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.finn.blog.service.BlogInfoService;
 import com.finn.blog.service.RedisService;
-import com.finn.blog.utils.IpUtils;
+import com.finn.blog.utils.IPUtils;
 import eu.bitwalker.useragentutils.Browser;
 import eu.bitwalker.useragentutils.OperatingSystem;
 import eu.bitwalker.useragentutils.UserAgent;
@@ -32,8 +32,8 @@ public class BlogInfoServiceImpl implements BlogInfoService {
 
     @Override
     public void report() {
-        String ipAddress = IpUtils.getIpAddress(request);
-        UserAgent userAgent = IpUtils.getUserAgent(request);
+        String ipAddress = IPUtils.getIpAddress(request);
+        UserAgent userAgent = IPUtils.getUserAgent(request);
         Browser browser = userAgent.getBrowser();
         OperatingSystem operatingSystem = userAgent.getOperatingSystem();
         // 生成唯一标识
@@ -42,7 +42,7 @@ public class BlogInfoServiceImpl implements BlogInfoService {
         // 判断redis中是否存在
         if (!redisService.sIsMember(UNIQUE_VISITOR, md5)) {
             // 统计游客地域分布
-            String ipSource = IpUtils.getIpSource(ipAddress);
+            String ipSource = IPUtils.getIpSource(ipAddress);
             if (StringUtils.isNotBlank(ipSource)) {
                 ipSource = ipSource.substring(0, 2)
                         .replaceAll(PROVINCE, "")

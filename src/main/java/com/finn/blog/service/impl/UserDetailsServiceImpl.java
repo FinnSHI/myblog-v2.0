@@ -10,7 +10,7 @@ import com.finn.blog.dto.UserDetailDTO;
 import com.finn.blog.entity.UserAuth;
 import com.finn.blog.exception.MyRuntimeException;
 import com.finn.blog.service.RedisService;
-import com.finn.blog.utils.IpUtils;
+import com.finn.blog.utils.IPUtils;
 import eu.bitwalker.useragentutils.UserAgent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -81,9 +81,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         Set<Object> commentLikeSet = redisService.sMembers(COMMENT_USER_LIKE + userInfo.getId());
         Set<Object> talkLikeSet = redisService.sMembers(TALK_USER_LIKE + userInfo.getId());
         // 获取设备信息
-        String ipAddress = IpUtils.getIpAddress(request);
-        String ipSource = IpUtils.getIpSource(ipAddress);
-        UserAgent userAgent = IpUtils.getUserAgent(request);
+        String ipAddress = IPUtils.getIpAddress(request);
+        String ipSource = IPUtils.getIpSource(ipAddress);
+        UserAgent userAgent = IPUtils.getUserAgent(request);
         // 封装权限集合
         return UserDetailDTO.builder()
                 .id(user.getId())

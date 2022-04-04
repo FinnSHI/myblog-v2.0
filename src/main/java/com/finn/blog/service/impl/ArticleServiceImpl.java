@@ -7,10 +7,13 @@ import com.finn.blog.service.ArticleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.finn.blog.service.RedisService;
 import com.finn.blog.utils.PageUtils;
+import com.finn.blog.vo.ArticleTopVO;
+import com.finn.blog.vo.ArticleVO;
 import com.finn.blog.vo.ConditionVO;
 import com.finn.blog.vo.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -43,9 +46,10 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, Article> impleme
         }
         // 查询后台文章
         List<ArticleBackDTO> articleBackDTOList = articleDao.listArticleBacks(PageUtils.getLimitCurrent(), PageUtils.getSize(), conditionVO);
-        // 查询文章点赞量和浏览量
-        Map<Object, Double> viewsCountMap = redisService.zAllScore(ARTICLE_VIEWS_COUNT);
+        // 查询文章点赞量
         Map<String, Object> likeCountMap = redisService.hGetAll(ARTICLE_LIKE_COUNT);
+        // 查询文章浏览量
+        Map<Object, Double> viewsCountMap = redisService.zAllScore(ARTICLE_VIEWS_COUNT);
         // 封装点赞量和浏览量
         articleBackDTOList.forEach(item -> {
             Double viewsCount = viewsCountMap.get(item.getId());
@@ -55,5 +59,22 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, Article> impleme
             item.setLikeCount((Integer) likeCountMap.get(item.getId().toString()));
         });
         return new PageResult<>(articleBackDTOList, count);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void updateArticleTop(ArticleTopVO articleTopVO) {
+        // 修改文章置顶状态
+        Article article = Article.builder()
+                .id(articleTopVO.getId())
+                .isTop(articleTopVO.getIsTop())
+                .build();
+        articleDao.updateById(article);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void saveOrUpdateArticle(ArticleVO articleVO) {
+
     }
 }

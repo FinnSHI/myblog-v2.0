@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -21,6 +22,7 @@ import lombok.experimental.Accessors;
  */
 @Getter
 @Setter
+@Builder
 @Accessors(chain = true)
 @TableName("tb_article")
 @ApiModel(value = "Article对象", description = "")
@@ -53,13 +55,13 @@ public class Article implements Serializable {
     private String originalUrl;
 
     @ApiModelProperty("是否置顶 0否 1是")
-    private Boolean isTop;
+    private Integer isTop;
 
     @ApiModelProperty("是否删除  0否 1是")
-    private Boolean isDelete;
+    private Integer isDelete;
 
     @ApiModelProperty("状态值 1公开 2私密 3评论可见")
-    private Boolean status;
+    private Integer status;
 
     @ApiModelProperty("发表时间")
     private LocalDateTime createTime;

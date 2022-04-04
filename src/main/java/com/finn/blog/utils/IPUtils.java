@@ -13,11 +13,11 @@ import java.util.List;
 import java.util.Map;
 
 /*
- * @description: IpUtils
+ * @description: IPUtils
  * @author: Finn
  * @create: 2022/04/04 00:56
  */
-public class IpUtils {
+public class IPUtils {
 
     /**
      * 获取用户ip地址
