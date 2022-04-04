@@ -15,5 +15,12 @@ import java.util.List;
  */
 public interface MenuService extends IService<Menu> {
 
+    /*
+    * @Description: 获取菜单列表 
+    * @Param: [conditionVO] 
+    * @return: java.util.List<com.finn.blog.dto.MenuDTO> 
+    * @Author: Finn
+    * @Date: 2022/04/04 17:07
+    */
     List<MenuDTO>  getMenuList(ConditionVO conditionVO);
 }
