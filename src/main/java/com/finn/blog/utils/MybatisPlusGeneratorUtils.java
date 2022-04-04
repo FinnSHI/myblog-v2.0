@@ -43,7 +43,7 @@ public class MybatisPlusGeneratorUtils {
      * @Date: 2022/1/20
      */
     public static void main(String[] args) {
-        String moduleName = "blog-web";
+//        String moduleName = "blog-web";
         String tableName = scanner("表名");
 
         FastAutoGenerator.create("jdbc:mysql://localhost:3306/blog-v2.0?useUnicode=true&characterEncoding=utf-8&userSSL=false&serverTimezone=GMT%2B8",
@@ -53,18 +53,18 @@ public class MybatisPlusGeneratorUtils {
                     builder.author("finn") // 设置作者
                             .enableSwagger() // 开启 swagger 模式
 //                            .fileOverride() // 覆盖已生成文件
-                            .outputDir("E:\\myblog\\myblog-v1.0\\" + moduleName + "\\src\\main\\java"); // 指定输出目录
+                            .outputDir("E:\\myblog\\myblog-v2.0\\" + "\\src\\main\\java"); // 指定输出目录
                 })
                 .packageConfig(builder -> {
-                    builder.parent("com.finn") // 设置父包名
+                    builder.parent("com.finn.blog") // 设置父包名
 //                            .moduleName("blog-web") // 设置父包模块名
                             .entity("entity")
                             .service("service")
-                            .serviceImpl("service.serviceImpl")
+                            .serviceImpl("service.impl")
                             .controller("controller")
                             .mapper("dao")
                             .xml("mapper")
-                            .pathInfo(Collections.singletonMap(OutputFile.mapperXml, "E:\\myblog\\myblog-v1.0\\" + moduleName + "\\src\\main\\resources\\mapper")); // 设置mapperXml生成路径
+                            .pathInfo(Collections.singletonMap(OutputFile.mapperXml, "E:\\myblog\\myblog-v2.0\\" + "\\src\\main\\resources\\mapper")); // 设置mapperXml生成路径
                 })
                 .strategyConfig(builder -> {
                     builder.addInclude(tableName) // 设置需要生成的表名

@@ -1,7 +1,9 @@
 package com.finn.blog.controller;
 
+import com.finn.blog.dto.MenuDTO;
 import com.finn.blog.dto.UserMenuDTO;
 import com.finn.blog.service.MenuService;
+import com.finn.blog.vo.ConditionVO;
 import com.finn.blog.vo.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -32,7 +34,7 @@ public class MenuController {
     */
     @ApiOperation(value = "查看当前用户菜单")
     @GetMapping("/admin/user/menus")
-    public Result<List<UserMenuDTO>> listUserMenus() {
-        return Result.ok(menuService.listUserMenus());
+    public Result<List<MenuDTO>> listUserMenus(ConditionVO conditionVO) {
+        return Result.ok(menuService.getMenuList(conditionVO));
     }
 }
