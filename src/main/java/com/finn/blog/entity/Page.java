@@ -5,14 +5,15 @@ package com.finn.blog.entity;
  * @author: Finn
  * @create: 2022/04/04 01:13
  */
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
@@ -23,30 +24,46 @@ import lombok.experimental.Accessors;
  */
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Accessors(chain = true)
 @TableName("tb_page")
-@ApiModel(value = "Page对象", description = "页面")
+@ApiModel(value = "页面信息", description = "页面")
 public class Page implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty("页面id")
-    @TableId(value = "id", type = IdType.AUTO)
+    /**
+     * 页面id
+     */
+    @TableId(type = IdType.AUTO)
     private Integer id;
 
-    @ApiModelProperty("页面标签")
+    /**
+     * 页面名
+     */
     private String pageName;
 
-    @ApiModelProperty("页面名")
-    private String pageDescription;
+    /**
+     * 页面标签
+     */
+    private String pageLabel;
 
-    @ApiModelProperty("页面封面")
+    /**
+     * 页面封面
+     */
     private String pageCover;
 
-    @ApiModelProperty("创建时间")
+    /**
+     * 创建时间
+     */
+    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
-    @ApiModelProperty("更新时间")
+    /**
+     * 修改时间
+     */
+    @TableField(fill = FieldFill.UPDATE)
     private LocalDateTime updateTime;
 
 

@@ -12,12 +12,12 @@ spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/blog-v2.0?useUnicode=true&characterEncoding=utf-8&userSSL=false&serverTimezone=GMT%2B8 # %2B
-#    url: jdbc:mysql://119.91.95.127:3306/blog?useUnicode=true&characterEncoding=utf-8&userSSL=false&serverTimezone=GMT%2B8 # %2B
+#    url: jdbc:mysql://localhost:3306/blog-v2.0?useUnicode=true&characterEncoding=utf-8&userSSL=false&serverTimezone=GMT%2B8 # %2B
+    url: jdbc:mysql://119.91.95.127:3306/blogv2?useUnicode=true&characterEncoding=utf-8&userSSL=false&serverTimezone=GMT%2B8 # %2B
     #    url: jdbc:mysql://localhost:3306/blog
     username: root
-#    password: ShiFan53110
-    password: admin
+    password: ShiFan53110
+#    password: admin
     hikari:
       minimum-idle: 5
       # 空闲连接存活最大时间，默认600000（10分钟）
@@ -35,14 +35,55 @@ spring:
       connection-test-query: SELECT 1
 
   redis:
-#    host: 119.91.95.127
-    host: localhost
+    host: 119.91.95.127
+#    host: localhost
     port: 6379
-#    password: redis-123456
+    password: redis-123456
 
   devtools:
     restart:
       enabled: false
+
+  # 上传图片大小限制
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size:  100MB
+
+  rabbitmq:
+    host: 119.91.95.127
+    port: 5672
+    username: admin
+    password: admin-rabbitmq
+    virtual-host: my_vhost
+    listener:
+      simple:
+        retry:
+          enabled: true
+          max-attempts: 3 #最大重试次数
+          initial-interval: 3000 #重试间隔时间（单位毫秒）
+# 上传模式 可选 oss或local  （http://和最后的/一定不能去！！！）
+upload:
+  mode: oss
+  local:
+    # nginx映射本地文件路径，无域名则为 ip:83
+    url: http://你的文件上传子域名/
+    # 本地文件存储路径
+    path: /usr/local/upload/
+  oss:
+    url: http://finn-blog.oss-cn-shanghai.aliyuncs.com/
+    endpoint: oss-cn-shanghai.aliyuncs.com
+    accessKeyId: LTAI5t6tqPXvzco1RBgNVcoX
+    accessKeySecret: biCa7P3i1z1ehB71DHuLWAutoaz7Ap
+    bucketName: finn-blog
+
+#  tengxun:
+#    accessKey: AKIDUpxqTqyqTr0tWt0qQkriNmvkJcfSzGH1
+#    secretKey: Xopb6LL4JEtJUP3RZR2NSHq9CzWmmW0D
+#    bucket: ap-shanghai
+#    bucketName: finn-blog-1307358696
+#    path: https://finn-blog-1307358696.cos.ap-shanghai.myqcloud.com
+#    qianzui: finn-blog
 
 mybatis-plus:
   #The classpath*:conf/appContext.xml simply means that allx appContext.xml files under conf folders in all your jars on the classpath will be picked up and joined into one big application context.

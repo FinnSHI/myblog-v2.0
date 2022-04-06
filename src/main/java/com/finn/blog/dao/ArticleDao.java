@@ -1,6 +1,9 @@
 package com.finn.blog.dao;
 
 import com.finn.blog.dto.ArticleBackDTO;
+import com.finn.blog.dto.ArticleDTO;
+import com.finn.blog.dto.ArticleHomeDTO;
+import com.finn.blog.dto.ArticleRecommendDTO;
 import com.finn.blog.entity.Article;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.finn.blog.utils.PageUtils;
@@ -38,4 +41,31 @@ public interface ArticleDao extends BaseMapper<Article> {
     * @Date: 2022/04/04 20:55
     */
     List<ArticleBackDTO> listArticleBacks(@Param("current") Long current, @Param("size") Long size, @Param("condition") ConditionVO condition);
+
+    /*
+    * @Description: 查询首页文章
+    * @Param: [current, size]
+    * @return: java.util.List<com.finn.blog.dto.ArticleHomeDTO>
+    * @Author: Finn
+    * @Date: 2022/04/05 20:51
+    */
+    List<ArticleHomeDTO> listArticles(@Param("current") Long current, @Param("size") Long size);
+
+    /* 
+    * @Description: 查看推荐文章 
+    * @Param: [articleId] 
+    * @return: java.util.List<com.finn.blog.dto.ArticleRecommendDTO> 
+    * @Author: Finn
+    * @Date: 2022/04/05 21:28
+    */
+    List<ArticleRecommendDTO> listRecommendArticles(@Param("articleId") Integer articleId);
+
+    /*
+    * @Description: 根据id查询文章
+    * @Param: [articleId]
+    * @return: com.finn.blog.dto.ArticleDTO
+    * @Author: Finn
+    * @Date: 2022/04/05 21:33
+    */
+    ArticleDTO getArticleById(@Param("articleId") Integer articleId);
 }

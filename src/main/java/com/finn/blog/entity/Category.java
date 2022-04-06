@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -21,6 +22,7 @@ import lombok.experimental.Accessors;
  */
 @Getter
 @Setter
+@Builder
 @Accessors(chain = true)
 @TableName("tb_category")
 @ApiModel(value = "Category对象", description = "")

@@ -1,6 +1,7 @@
 package com.finn.blog.controller;
 
 import com.finn.blog.dto.BlogBackInfoDTO;
+import com.finn.blog.dto.BlogHomeInfoDTO;
 import com.finn.blog.service.BlogInfoService;
 import com.finn.blog.vo.Result;
 import io.swagger.annotations.Api;
@@ -23,13 +24,26 @@ public class BlogInfoController {
     private BlogInfoService blogInfoService;
 
     /*
-    * @Description: 上传博客信息
+    * @Description: 博客配置信息
+    * @Param: []
+    * @return: com.finn.blog.vo.Result<BlogHomeInfoDTO>
+    * @Author: Finn
+    * @Date: 2022/04/05 19:13
+    */
+    @ApiOperation(value = "博客配置信息")
+    @GetMapping("/")
+    public Result<BlogHomeInfoDTO> getBlogHomeInfo() {
+        return Result.ok(blogInfoService.getBlogHomeInfo());
+    }
+
+    /*
+    * @Description: 上传访客信息
     * @Param: []
     * @return: com.finn.blog.vo.Result<?>
     * @Author: Finn
     * @Date: 2022/04/04 17:01
     */
-    @ApiOperation(value = "上传博客信息")
+    @ApiOperation(value = "上传访客信息")
     @PostMapping("/report")
     public Result<?> report() {
         blogInfoService.report();

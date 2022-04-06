@@ -14,19 +14,19 @@ public enum StatusCodeEnum {
     /**
      * 成功
      */
-    SUCCESS(20000, "操作成功"),
+    SUCCESS(200, "操作成功"),
     /**
      * 没有操作权限
      */
-    AUTHORIZED(40300, "没有操作权限"),
+    AUTHORIZED(403, "没有操作权限"),
     /**
      * 系统异常
      */
-    SYSTEM_ERROR(50000, "系统异常"),
+    SYSTEM_ERROR(500, "系统异常"),
     /**
      * 失败
      */
-    FAIL(51000, "操作失败"),
+    FAIL(510, "操作失败"),
     /**
      * 参数校验失败
      */

@@ -1,15 +1,12 @@
 package com.finn.blog.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.Accessors;
 
 /**
@@ -23,50 +20,79 @@ import lombok.experimental.Accessors;
 @Getter
 @Setter
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Accessors(chain = true)
 @TableName("tb_article")
 @ApiModel(value = "Article对象", description = "")
-public class Article implements Serializable {
+public class Article {
 
-    private static final long serialVersionUID = 1L;
-
+    /**
+     * id
+     */
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    @ApiModelProperty("作者")
+    /**
+     * 作者
+     */
     private Integer userId;
 
-    @ApiModelProperty("文章分类")
+    /**
+     * 文章分类
+     */
     private Integer categoryId;
 
-    @ApiModelProperty("文章缩略图")
+    /**
+     * 文章缩略图
+     */
     private String articleCover;
 
-    @ApiModelProperty("标题")
+    /**
+     * 标题
+     */
     private String articleTitle;
 
-    @ApiModelProperty("内容")
+    /**
+     * 内容
+     */
     private String articleContent;
 
-    @ApiModelProperty("文章类型 1原创 2转载 3翻译")
-    private Boolean type;
+    /**
+     * 文章类型
+     */
+    private Integer type;
 
-    @ApiModelProperty("原文链接")
+    /**
+     * 原文链接
+     */
     private String originalUrl;
 
-    @ApiModelProperty("是否置顶 0否 1是")
+    /**
+     * 是否置顶
+     */
     private Integer isTop;
 
-    @ApiModelProperty("是否删除  0否 1是")
+    /**
+     * 是否删除
+     */
     private Integer isDelete;
 
-    @ApiModelProperty("状态值 1公开 2私密 3评论可见")
+    /**
+     * 文章状态 1.公开 2.私密 3.评论可见
+     */
     private Integer status;
 
-    @ApiModelProperty("发表时间")
+    /**
+     * 创建时间
+     */
+    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
-    @ApiModelProperty("更新时间")
+    /**
+     * 修改时间
+     */
+    @TableField(fill = FieldFill.UPDATE)
     private LocalDateTime updateTime;
 
 
