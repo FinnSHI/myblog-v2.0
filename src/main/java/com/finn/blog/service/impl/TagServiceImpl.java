@@ -49,4 +49,11 @@ public class TagServiceImpl extends ServiceImpl<TagDao, Tag> implements TagServi
         List<TagBackDTO> tagBackDTOS = tagDao.listTagBackDTO(PageUtils.getLimitCurrent(), PageUtils.getSize(), condition);
         return new PageResult<>(tagBackDTOS, count);
     }
+
+    @Override
+    public PageResult<TagDTO> listTags() {
+        List<Tag> tags = tagDao.selectList(null);
+        List<TagDTO> tagDTOList = BeanCopyUtils.copyList(tags, TagDTO.class);
+        return new PageResult<>(tagDTOList, tagDao.selectCount(null));
+    }
 }

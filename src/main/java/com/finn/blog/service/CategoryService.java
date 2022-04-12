@@ -1,6 +1,7 @@
 package com.finn.blog.service;
 
 import com.finn.blog.dto.CategoryBackDTO;
+import com.finn.blog.dto.CategoryDTO;
 import com.finn.blog.dto.CategoryOptionDTO;
 import com.finn.blog.entity.Category;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -36,4 +37,13 @@ public interface CategoryService extends IService<Category> {
     * @Date: 2022/04/05 09:58
     */
     PageResult<CategoryBackDTO> listBackCategories(ConditionVO condition);
+
+    /*
+    * @Description: 博客分类
+    * @Param: []
+    * @return: com.finn.blog.vo.PageResult<com.finn.blog.dto.CategoryDTO>
+    * @Author: Finn
+    * @Date: 2022/04/08 20:31
+    */
+    PageResult<CategoryDTO> listCategories();
 }

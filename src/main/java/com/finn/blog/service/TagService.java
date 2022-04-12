@@ -36,4 +36,13 @@ public interface TagService extends IService<Tag> {
     * @Date: 2022/04/05 10:19
     */
     PageResult<TagBackDTO> listTagBackDTO(ConditionVO condition);
+
+    /*
+    * @Description: 查看Tags
+    * @Param: []
+    * @return: com.finn.blog.vo.PageResult<com.finn.blog.dto.TagDTO>
+    * @Author: Finn
+    * @Date: 2022/04/08 20:50
+    */
+    PageResult<TagDTO> listTags();
 }

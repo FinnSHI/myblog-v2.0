@@ -8,6 +8,7 @@ import com.finn.blog.dao.UserAuthDao;
 import com.finn.blog.dao.UserInfoDao;
 import com.finn.blog.dao.UserRoleDao;
 import com.finn.blog.dto.EmailDTO;
+import com.finn.blog.dto.UserAreaDTO;
 import com.finn.blog.entity.UserAuth;
 import com.finn.blog.entity.UserInfo;
 import com.finn.blog.entity.UserRole;
@@ -19,6 +20,7 @@ import com.finn.blog.service.RedisService;
 import com.finn.blog.service.UserAuthService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.finn.blog.utils.CommonUtils;
+import com.finn.blog.vo.ConditionVO;
 import com.finn.blog.vo.UserVO;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageProperties;
@@ -28,13 +30,17 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import static com.finn.blog.constant.RabbitMQPrefixConst.*;
-import static com.finn.blog.constant.RedisPrefixConst.CODE_EXPIRE_TIME;
-import static com.finn.blog.constant.RedisPrefixConst.USER_CODE_KEY;
+import static com.finn.blog.constant.RedisPrefixConst.*;
+import static com.finn.blog.enums.UserAreaTypeEnum.*;
 
 /**
  * <p>
@@ -107,6 +113,35 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthDao, UserAuth> impl
                 .loginType(LoginTypeEnum.EMAIL.getType())
                 .build();
         userAuthDao.insert(userAuth);
+    }
+
+    @Override
+    public List<UserAreaDTO> listUserAreas(ConditionVO conditionVO) {
+        List<UserAreaDTO> userAreaDTOList = new ArrayList<>();
+        switch (Objects.requireNonNull(getUserAreaType(conditionVO.getType()))) {
+            case USER:
+                // 查询注册用户区域分布
+                Object userArea = redisService.get(USER_AREA);
+                if (Objects.nonNull(userArea)) {
+                    userAreaDTOList = JSON.parseObject(userArea.toString(), List.class);
+                }
+                return userAreaDTOList;
+            case VISITOR:
+                // 查询游客区域分布
+                Map<String, Object> visitorArea = redisService.hGetAll(VISITOR_AREA);
+                if (Objects.nonNull(visitorArea)) {
+                    userAreaDTOList = visitorArea.entrySet().stream()
+                            .map(item -> UserAreaDTO.builder()
+                                    .name(item.getKey())
+                                    .value(Long.valueOf(item.getValue().toString()))
+                                    .build())
+                            .collect(Collectors.toList());
+                }
+                return userAreaDTOList;
+            default:
+                break;
+        }
+        return userAreaDTOList;
     }
 
     /*

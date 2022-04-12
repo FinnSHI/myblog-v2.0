@@ -2,6 +2,7 @@ package com.finn.blog.controller;
 
 
 import com.finn.blog.annotation.OptLog;
+import com.finn.blog.dto.ArchiveDTO;
 import com.finn.blog.dto.ArticleBackDTO;
 import com.finn.blog.dto.ArticleDTO;
 import com.finn.blog.dto.ArticleHomeDTO;
@@ -136,5 +137,18 @@ public class ArticleController {
     @PostMapping("/admin/articles/images")
     public Result<String> saveArticleImages(MultipartFile file) {
         return Result.ok(uploadStrategyContext.executeUploadStrategy(file, FilePathEnum.ARTICLE.getPath()));
+    }
+
+    /*
+    * @Description: 查看文章归档
+    * @Param: []
+    * @return: com.finn.blog.vo.Result<com.finn.blog.vo.PageResult<ArchiveDTO>>
+    * @Author: Finn
+    * @Date: 2022/04/08 19:47
+    */
+    @ApiOperation(value = "查看文章归档")
+    @GetMapping("/articles/archives")
+    public Result<PageResult<ArchiveDTO>> listArchives() {
+        return Result.ok(articleService.listArchives());
     }
 }

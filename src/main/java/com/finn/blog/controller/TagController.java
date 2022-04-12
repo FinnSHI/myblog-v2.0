@@ -30,6 +30,19 @@ public class TagController {
     TagService tagService;
 
     /*
+    * @Description: 查询标签列表
+    * @Param: []
+    * @return: com.finn.blog.vo.Result<com.finn.blog.vo.PageResult<com.finn.blog.dto.TagDTO>>
+    * @Author: Finn
+    * @Date: 2022/04/08 20:50
+    */
+    @ApiOperation(value = "查询标签列表")
+    @GetMapping("/tags")
+    public Result<PageResult<TagDTO>> listTags() {
+        return Result.ok(tagService.listTags());
+    }
+
+    /*
     * @Description: 文章列表搜索标签
     * @Param: [condition]
     * @return: com.finn.blog.vo.Result<java.util.List<com.finn.blog.dto.TagDTO>>

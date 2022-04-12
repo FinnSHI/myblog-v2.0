@@ -50,18 +50,31 @@ public class BlogInfoController {
         return Result.ok();
     }
 
-//    /*
-//    * @Description: 查看后台信息
-//    * @Param: []
-//    * @return: com.finn.blog.vo.Result<BlogBackInfoDTO>
-//    * @Author: Finn
-//    * @Date: 2022/04/04 20:27
-//    */
-//    @ApiOperation(value = "查看后台信息")
-//    @GetMapping("/admin")
-//    public Result<BlogBackInfoDTO> getBlogBackInfo() {
-//        return Result.ok(blogInfoService.getBlogBackInfo());
-//    }
+    /* 
+    * @Description: 查看关于我 
+    * @Param: [] 
+    * @return: com.finn.blog.vo.Result<java.lang.String> 
+    * @Author: Finn
+    * @Date: 2022/04/08 21:54
+    */
+    @ApiOperation(value = "查看关于我信息")
+    @GetMapping("/about")
+    public Result<String> getAbout() {
+        return Result.ok(blogInfoService.getAbout());
+    }
+
+    /*
+    * @Description: 查看后台信息
+    * @Param: []
+    * @return: com.finn.blog.vo.Result<BlogBackInfoDTO>
+    * @Author: Finn
+    * @Date: 2022/04/04 20:27
+    */
+    @ApiOperation(value = "查看后台信息")
+    @GetMapping("/admin")
+    public Result<BlogBackInfoDTO> getBlogBackInfo() {
+        return Result.ok(blogInfoService.getBlogBackInfo());
+    }
 
 
 }

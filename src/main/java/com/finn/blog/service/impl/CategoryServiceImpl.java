@@ -3,6 +3,7 @@ package com.finn.blog.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.finn.blog.dto.CategoryBackDTO;
+import com.finn.blog.dto.CategoryDTO;
 import com.finn.blog.dto.CategoryOptionDTO;
 import com.finn.blog.entity.Category;
 import com.finn.blog.dao.CategoryDao;
@@ -51,5 +52,10 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, Category> impl
         }
         List<CategoryBackDTO> listCategoriedBack = categoryDao.listCategoryBackDTO(PageUtils.getLimitCurrent(), PageUtils.getSize(), condition);
         return new PageResult<>(listCategoriedBack, count);
+    }
+
+    @Override
+    public PageResult<CategoryDTO> listCategories() {
+        return new PageResult<>(categoryDao.listCategoryDTO(), categoryDao.selectCount(null));
     }
 }

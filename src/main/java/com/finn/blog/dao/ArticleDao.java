@@ -1,9 +1,6 @@
 package com.finn.blog.dao;
 
-import com.finn.blog.dto.ArticleBackDTO;
-import com.finn.blog.dto.ArticleDTO;
-import com.finn.blog.dto.ArticleHomeDTO;
-import com.finn.blog.dto.ArticleRecommendDTO;
+import com.finn.blog.dto.*;
 import com.finn.blog.entity.Article;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.finn.blog.utils.PageUtils;
@@ -68,4 +65,13 @@ public interface ArticleDao extends BaseMapper<Article> {
     * @Date: 2022/04/05 21:33
     */
     ArticleDTO getArticleById(@Param("articleId") Integer articleId);
+
+    /* 
+    * @Description: 文章统计 
+    * @Param: [] 
+    * @return: java.util.List<com.finn.blog.dto.ArticleStatisticsDTO> 
+    * @Author: Finn
+    * @Date: 2022/04/12 13:41
+    */
+    List<ArticleStatisticsDTO> listArticleStatistics();
 }

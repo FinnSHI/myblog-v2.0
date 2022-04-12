@@ -2,6 +2,7 @@ package com.finn.blog.controller;
 
 
 import com.finn.blog.dto.CategoryBackDTO;
+import com.finn.blog.dto.CategoryDTO;
 import com.finn.blog.dto.CategoryOptionDTO;
 import com.finn.blog.service.CategoryService;
 import com.finn.blog.vo.ConditionVO;
@@ -53,5 +54,18 @@ public class CategoryController {
     @GetMapping("/admin/categories")
     public Result<PageResult<CategoryBackDTO>> listBackCategories(ConditionVO condition) {
         return Result.ok(categoryService.listBackCategories(condition));
+    }
+
+    /*
+    * @Description: 博客展示页查看分类
+    * @Param: []
+    * @return: com.finn.blog.vo.Result<com.finn.blog.vo.PageResult<CategoryDTO>>
+    * @Author: Finn
+    * @Date: 2022/04/08 20:29
+    */
+    @ApiOperation(value = "查看分类列表")
+    @GetMapping("/categories")
+    public Result<PageResult<CategoryDTO>> listCategories() {
+        return Result.ok(categoryService.listCategories());
     }
 }

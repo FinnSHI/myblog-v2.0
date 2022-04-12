@@ -2,6 +2,7 @@ package com.finn.blog.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.finn.blog.dao.ArticleTagDao;
 import com.finn.blog.dao.CategoryDao;
 import com.finn.blog.dao.TagDao;
@@ -195,6 +196,19 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, Article> impleme
             e.printStackTrace();
         }
         return article;
+    }
+
+    @Override
+    public PageResult<ArchiveDTO> listArchives() {
+        Page<Article> page = new Page<>(PageUtils.getCurrent(), PageUtils.getSize());
+        // 获取分页数据
+        Page<Article> articlePage = articleDao.selectPage(page, new LambdaQueryWrapper<Article>()
+                .select(Article::getId, Article::getArticleTitle, Article::getCreateTime)
+                .orderByDesc(Article::getCreateTime)
+                .eq(Article::getIsDelete, FALSE)
+                .eq(Article::getStatus, PUBLIC.getStatus()));
+        List<ArchiveDTO> archiveDTOList = BeanCopyUtils.copyList(articlePage.getRecords(), ArchiveDTO.class);
+        return new PageResult<>(archiveDTOList, (int) articlePage.getTotal());
     }
 
     /*

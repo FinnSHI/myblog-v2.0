@@ -1,6 +1,7 @@
 package com.finn.blog.service;
 
 
+import com.finn.blog.dto.ArchiveDTO;
 import com.finn.blog.dto.ArticleBackDTO;
 import com.finn.blog.dto.ArticleDTO;
 import com.finn.blog.dto.ArticleHomeDTO;
@@ -76,4 +77,13 @@ public interface ArticleService extends IService<Article> {
     * @Date: 2022/04/05 21:16
     */
     ArticleDTO getArticleById(Integer articleId);
+
+    /*
+    * @Description: 查看文章归档
+    * @Param: []
+    * @return: com.finn.blog.vo.PageResult<com.finn.blog.dto.ArchiveDTO>
+    * @Author: Finn
+    * @Date: 2022/04/08 19:53
+    */
+    PageResult<ArchiveDTO> listArchives();
 }
