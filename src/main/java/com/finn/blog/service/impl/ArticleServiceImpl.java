@@ -36,8 +36,7 @@ import java.util.stream.Collectors;
 
 import static com.finn.blog.constant.CommonConst.ARTICLE_SET;
 import static com.finn.blog.constant.CommonConst.FALSE;
-import static com.finn.blog.constant.RedisPrefixConst.ARTICLE_LIKE_COUNT;
-import static com.finn.blog.constant.RedisPrefixConst.ARTICLE_VIEWS_COUNT;
+import static com.finn.blog.constant.RedisPrefixConst.*;
 import static com.finn.blog.enums.ArticleStatusEnum.*;
 
 /**
@@ -209,6 +208,25 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, Article> impleme
                 .eq(Article::getStatus, PUBLIC.getStatus()));
         List<ArchiveDTO> archiveDTOList = BeanCopyUtils.copyList(articlePage.getRecords(), ArchiveDTO.class);
         return new PageResult<>(archiveDTOList, (int) articlePage.getTotal());
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void saveArticleLike(Integer articleId) {
+        // 判断是否点赞
+        String articleLikeKey = ARTICLE_USER_LIKE + UserUtils.getLoginUser().getUserInfoId();
+        // 已经点过赞了, 删除文章id
+        if (redisService.sIsMember(articleLikeKey, articleId)) {
+            // 取消点赞
+            redisService.sRemove(articleLikeKey, articleId);
+            // 文章点赞数-1
+            redisService.hDecr(ARTICLE_LIKE_COUNT, articleId.toString(), 1L);
+        } else {
+            // 未点赞则增加文章id
+            redisService.sAdd(articleLikeKey, articleId);
+            // 文章点赞量+1
+            redisService.hIncr(ARTICLE_LIKE_COUNT, articleId.toString(), 1L);
+        }
     }
 
     /*

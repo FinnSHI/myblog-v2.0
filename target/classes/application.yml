@@ -12,13 +12,12 @@ spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:mysql://localhost:3306/blog-v2.0?useUnicode=true&characterEncoding=utf-8&userSSL=false&serverTimezone=GMT%2B8 # %2B
+    #    url: jdbc:mysql://localhost:3306/blog-v2.0?useUnicode=true&characterEncoding=utf-8&userSSL=false&serverTimezone=GMT%2B8 # %2B
     url: jdbc:mysql://119.91.95.127:3306/blogv2?useUnicode=true&characterEncoding=utf-8&userSSL=false&serverTimezone=GMT%2B8 # %2B
-#        url: jdbc:mysql://localhost:3306/blog
+    #        url: jdbc:mysql://localhost:3306/blog
     username: root
     password: ShiFan53110
-#    password: admin
-
+    #    password: admin
     hikari:
       minimum-idle: 5
       # 空闲连接存活最大时间，默认600000（10分钟）
@@ -31,8 +30,8 @@ spring:
       pool-name: MyHikariCP
       # 此属性控制池中连接的最长生命周期，值0表示无限生命周期，默认1800000即30分钟
       max-lifetime: 1800000
-      # 数据库连接超时时间,默认30秒，即30000
-      connection-timeout: 30000
+      # 数据库连接超时时间,默认10秒，即10000
+      connection-timeout: 10000
       connection-test-query: SELECT 1
 
   redis:
@@ -56,13 +55,25 @@ spring:
     port: 5672
     username: admin
     password: admin-rabbitmq
-    virtual-host: my_vhost
+#    virtual-host: my_vhost
     listener:
       simple:
         retry:
           enabled: true
           max-attempts: 3 #最大重试次数
           initial-interval: 3000 #重试间隔时间（单位毫秒）
+  mail:
+    host: smtp.qq.com
+    username: 584273128@qq.com
+    password: aihkluhepmnwbfdj
+    default-encoding: UTF-8
+    port: 587
+    properties:
+      mail:
+      smtp:
+      auth: true
+      socketFactory:
+      class: javax.net.ssl.SSLSocketFactory
 
 # 上传模式 可选 oss或local  （http://和最后的/一定不能去！！！）
 upload:
@@ -79,8 +90,6 @@ upload:
     accessKeySecret: GVFsTqKXIlOv4wWZurMqBM0Z6g7mig
     bucketName: finn-blog
 
-
-
 mybatis-plus:
   #The classpath*:conf/appContext.xml simply means that allx appContext.xml files under conf folders in all your jars on the classpath will be picked up and joined into one big application context.
   #In contrast, classpath:conf/appContext.xml will load only one such file... the first one found on your classpath.
@@ -92,3 +101,5 @@ mybatis-plus:
 enable:
   swagger2: true
 
+website:
+  url: http://finn-web.top

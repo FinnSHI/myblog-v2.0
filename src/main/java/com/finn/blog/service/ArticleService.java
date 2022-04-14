@@ -86,4 +86,13 @@ public interface ArticleService extends IService<Article> {
     * @Date: 2022/04/08 19:53
     */
     PageResult<ArchiveDTO> listArchives();
+
+    /* 
+    * @Description: 点赞文章 
+    * @Param: [articleId] 
+    * @return: void 
+    * @Author: Finn
+    * @Date: 2022/04/12 17:08
+    */
+    void saveArticleLike(Integer articleId);
 }

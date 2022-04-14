@@ -151,4 +151,19 @@ public class ArticleController {
     public Result<PageResult<ArchiveDTO>> listArchives() {
         return Result.ok(articleService.listArchives());
     }
+
+    /*
+    * @Description: 点赞文章
+    * @Param: [articleId]
+    * @return: com.finn.blog.vo.Result<?>
+    * @Author: Finn
+    * @Date: 2022/04/12 17:06
+    */
+    @ApiOperation(value = "点赞文章")
+    @ApiImplicitParam(name = "articleId", value = "文章id", required = true, dataType = "Integer")
+    @PostMapping("/articles/{articleId}/like")
+    public Result<?> saveArticleLike(@PathVariable("articleId") Integer articleId) {
+        articleService.saveArticleLike(articleId);
+        return Result.ok();
+    }
 }

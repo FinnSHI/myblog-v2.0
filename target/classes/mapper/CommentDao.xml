@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.finn.blog.dao.CommentDao">
+    <select id="listComments" resultType="com.finn.blog.dto.CommentDTO">
+        SELECT
+        u.nickname,
+        u.avatar,
+        u.web_site,
+        c.user_id,
+        c.id,
+        c.comment_content,
+        c.create_time
+        FROM
+        tb_comment c
+        JOIN tb_user_info u ON c.user_id = u.id
+        WHERE
+        <if test="commentVO.type == 1">
+            article_id = #{commentVO.articleId}
+        </if>
+        <if test="commentVO.type == 2">
+            type = 2
+        </if>
+        <if test="commentVO.type == 3">
+            talk_id = #{commentVO.talkId}
+        </if>
+        AND c.is_review = 1
+        AND parent_id IS NULL
+        ORDER BY
+        c.id DESC
+        LIMIT #{current},#{size}
+    </select>
+</mapper>

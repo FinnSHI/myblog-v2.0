@@ -90,7 +90,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .loginType(user.getLoginType())
                 .userInfoId(userInfo.getId())
                 .username(user.getUsername())
-                .password("{noop}" + user.getPassword())
+                .password(user.getPassword())
                 .email(userInfo.getEmail())
                 .roleList(roleList)
                 .nickname(userInfo.getNickname())
