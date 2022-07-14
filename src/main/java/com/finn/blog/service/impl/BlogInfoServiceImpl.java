@@ -13,6 +13,7 @@ import com.finn.blog.service.RedisService;
 import com.finn.blog.service.UniqueViewService;
 import com.finn.blog.utils.BeanCopyUtils;
 import com.finn.blog.utils.IPUtils;
+import com.finn.blog.vo.BlogInfoVO;
 import com.finn.blog.vo.PageVO;
 import com.finn.blog.vo.WebsiteConfigVO;
 import eu.bitwalker.useragentutils.Browser;
@@ -20,6 +21,7 @@ import eu.bitwalker.useragentutils.OperatingSystem;
 import eu.bitwalker.useragentutils.UserAgent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 
 import javax.annotation.Resource;
@@ -177,6 +179,12 @@ public class BlogInfoServiceImpl implements BlogInfoService {
             blogBackInfoDTO.setArticleRankDTOList(articleRankDTOList);
         }
         return blogBackInfoDTO;
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void updateAbout(BlogInfoVO blogInfoVO) {
+        redisService.set(ABOUT, blogInfoVO.getAboutContent());
     }
 
     /* 

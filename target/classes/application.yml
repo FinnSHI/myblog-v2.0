@@ -55,7 +55,7 @@ spring:
     port: 5672
     username: admin
     password: admin-rabbitmq
-#    virtual-host: my_vhost
+    #    virtual-host: my_vhost
     listener:
       simple:
         retry:
@@ -86,8 +86,8 @@ upload:
   oss:
     url: http://finn-blog.oss-cn-shanghai.aliyuncs.com/
     endpoint: oss-cn-shanghai.aliyuncs.com
-    accessKeyId: LTAI5t5qe6S81Y5M4cejxSHg
-    accessKeySecret: GVFsTqKXIlOv4wWZurMqBM0Z6g7mig
+    accessKeyId: LTAI5t73cfK9GRWinoxSyhBk
+    accessKeySecret: 1rvSy6sl7whWONyoz1OPkcE29c0cpc
     bucketName: finn-blog
 
 mybatis-plus:

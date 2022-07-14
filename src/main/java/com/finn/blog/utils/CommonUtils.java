@@ -1,8 +1,6 @@
 package com.finn.blog.utils;
 
-import io.swagger.models.auth.In;
-
-import java.util.Random;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -46,3 +44,4 @@ public class CommonUtils {
         return str.toString();
     }
 }
+

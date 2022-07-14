@@ -2,6 +2,7 @@ package com.finn.blog.service;
 
 import com.finn.blog.dto.BlogBackInfoDTO;
 import com.finn.blog.dto.BlogHomeInfoDTO;
+import com.finn.blog.vo.BlogInfoVO;
 import com.finn.blog.vo.WebsiteConfigVO;
 
 /*
@@ -55,4 +56,6 @@ public interface BlogInfoService {
     * @Date: 2022/04/12 12:58
     */
     BlogBackInfoDTO getBlogBackInfo();
+
+    void updateAbout(BlogInfoVO blogInfoVO);
 }

@@ -1,15 +1,23 @@
 package com.finn.blog.controller;
 
+import com.finn.blog.annotation.OptLog;
 import com.finn.blog.dto.BlogBackInfoDTO;
 import com.finn.blog.dto.BlogHomeInfoDTO;
 import com.finn.blog.service.BlogInfoService;
+import com.finn.blog.vo.BlogInfoVO;
 import com.finn.blog.vo.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
+
+import static com.finn.blog.constant.OptTypeConst.UPDATE;
 
 /*
  * @description: 博客信息控制层
@@ -61,6 +69,20 @@ public class BlogInfoController {
     @GetMapping("/about")
     public Result<String> getAbout() {
         return Result.ok(blogInfoService.getAbout());
+    }
+
+    /**
+     * 修改关于我信息
+     *
+     * @param blogInfoVO 博客信息
+     * @return {@link Result<>}
+     */
+    @OptLog(optType = UPDATE)
+    @ApiOperation(value = "修改关于我信息")
+    @PutMapping("/admin/about")
+    public Result<?> updateAbout(@Valid @RequestBody BlogInfoVO blogInfoVO) {
+        blogInfoService.updateAbout(blogInfoVO);
+        return Result.ok();
     }
 
     /*
